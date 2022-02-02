@@ -1,4 +1,22 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&family=Urbanist:ital,wght@1,100&display=swap');
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family:'Lato',sans-serif;
+}
+
+.home{
+  display: flex;
+  height: 09vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+
+/* .App {
   text-align: center;
 }
 
@@ -37,7 +55,6 @@
   }
 }
 
-/* Navbar */
 .navbar-nav a{
   font-size: 18px;
-}
+} */

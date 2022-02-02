@@ -104,7 +104,7 @@ const UplodProductDetails = () => {
                                                             label="Product Description"
                                                             variant="outlined"
                                                             fullWidth
-                                                            className={'form-control' + (errors.price && touched.price ? ' is-invalid' : '')}
+                                                            className={'form-control' + (errors.productDescription && touched.productDescription ? ' is-invalid' : '')}
                                                         />
                                                         <ErrorMessage name="productDescription" component="div" className="invalid-feedback" />
                                                     </div>
