@@ -22,11 +22,11 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
-        {/* <AdminNavbar /> */}
+        {/* <Navbar /> */}
+        <AdminNavbar />
         <Switch>
 
-          <Route exact={true} path="/" component={Home}></Route>
+          {/* <Route exact={true} path="/" component={Home}></Route>
 
           <Route exact={true} path="/login" component={Login}></Route>
 
@@ -48,8 +48,11 @@ function App() {
 
           <Route exact={true} path="/admin/addcategory" component={AddCategory}></Route>
 
-          <Route path="/welcome" component={Welcome}></Route>
-
+          <Route path="/welcome" component={Welcome}></Route> */}
+          
+          <Route exact={true} path="/admin/uploadproduct" component={UplodProductDetails}></Route>
+          <Route exact={true} path="/admin/home" component={AdminHome}></Route>
+          <Route exact={true} path="/admin/addcategory" component={AddCategory}></Route>
         </Switch>
       </div>
     </Router>

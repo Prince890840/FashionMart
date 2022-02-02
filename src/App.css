@@ -8,12 +8,14 @@
   text-align: center;
 }
 
-.home{
+.home,
+.uploadproduct,
+.addcategory{
   display: flex;
-  height: 09vh;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  left: 100px; top:2px;
+  position: relative;
 }
 
 

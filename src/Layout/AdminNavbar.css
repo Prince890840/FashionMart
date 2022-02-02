@@ -1,20 +1,20 @@
 .navbar{
     background-color: #081668;
-    height: 80px;
+    height: 70px;
     display: flex;
     justify-content: start;
     align-items: center;
 }
 
 .menu-bars{
-    margin-left: 2rem;
-    font-size: 2rem;
+    margin-left: 1.5rem;
+    font-size: 1.5rem;
     background: none;
 }
 
 .nav-menu{
     background-color: #081668;
-    width: 250px;
+    width: 195px;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -33,7 +33,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 8px 8px 8px 16px;
+    padding: 8px 8px 2px -20px;
     list-style: none;
     height: 60px;
 }
@@ -41,7 +41,7 @@
 .nav-text a{
     text-decoration: none;
     color: aqua;
-    font-size: 18px;
+    font-size: 15px;
     width: 95%;
     height: 100%;
     display: flex;
