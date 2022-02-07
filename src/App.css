@@ -10,7 +10,8 @@
 
 .home,
 .uploadproduct,
-.addcategory{
+.addcategory,
+.categorylist{
   display: flex;
   align-items: center;
   justify-content: center;

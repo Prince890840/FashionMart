@@ -7,18 +7,9 @@ import { Col, Row } from "react-bootstrap";
 
 const Login = () => {
 
-    const [error, setError] = useState(null);
-    const [authenticate, setauthenticate] = useState(null);
-    const [loading, setLoading] = useState(false);
     let history = useHistory();
 
     const CUSTOMER_API_BASE_URL = "http://localhost:8080/api/signin";
-
-    const getUserSession = (authenticate) => {
-        sessionStorage.getItem('authenticate', JSON.stringify(authenticate));
-    }
-
-    // getUserSession(response.data.authenticate);
 
     const handleData = async (fields) => {
         const { data } = await axios.post(CUSTOMER_API_BASE_URL, fields);

@@ -17,6 +17,8 @@ import UplodProductDetails from './Component/UploadProductDetails';
 import AdminNavbar from './Layout/AdminNavbar';
 import AdminHome from './Component/AdminHome';
 import AddCategory from './Component/AddCategory';
+import CategoryList from './Component/CategoryList';
+import EditCategory from './Component/EditCategory';
 
 function App() {
   return (
@@ -44,15 +46,15 @@ function App() {
 
           <Route exact={true} path="/products/:id" component={ProductView}></Route>
 
-          <Route exact={true} path="/admin/uploadproduct" component={UplodProductDetails}></Route>
+          <Route exact={true} path="/admin/uploadproduct" component={UplodProductDetails}></Route> */}
 
           <Route exact={true} path="/admin/addcategory" component={AddCategory}></Route>
 
-          <Route path="/welcome" component={Welcome}></Route> */}
+          <Route path="/welcome" component={Welcome}></Route>
           
-          <Route exact={true} path="/admin/uploadproduct" component={UplodProductDetails}></Route>
-          <Route exact={true} path="/admin/home" component={AdminHome}></Route>
-          <Route exact={true} path="/admin/addcategory" component={AddCategory}></Route>
+          <Route exact={true} path="/admin/listcategory" component={CategoryList}></Route>
+
+          <Route exact={true} path="/admin/category/update/:id" component={EditCategory}></Route>
         </Switch>
       </div>
     </Router>

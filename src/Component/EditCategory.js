@@ -1,23 +1,38 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const AddCategory = () => {
-
-    const CATEGORY_UPLOAD = "http://localhost:8080/api/category";
+const EditCategory = () => {
 
     let history = useHistory();
+    let { id } = useParams();
 
-    const submitData = async (fields) => {
-        try {
-            const response = await axios.post(CATEGORY_UPLOAD, fields);
-            history.push('/admin/listcategory');
-        } catch (e) {
-            console.log(e);
-        }
+    const [forminitialValues, setforminitialValues] = useState([]);
+    const CATEGORY_UPDATE_API = `http://localhost:8080/api/category/${id}`;
+
+    useEffect(() => {
+        loadCategory();
+    }, []);
+
+    const loadCategory = async () => {
+        const response = await axios.get(`http://localhost:8080/api/category/${id}`)
+        .then((response) => {
+            console.log(response.data);
+            setforminitialValues(response.data);
+        })
+        .catch((error) => console.log(error));
+        return response
+    }
+
+    const handleData = async (fields) => {
+        console.log(fields);
+        const response = await axios.put(CATEGORY_UPDATE_API, fields);
+        history.push("/admin/listcategory");
+        console.log(response);
     }
 
     return (
@@ -30,10 +45,8 @@ const AddCategory = () => {
                         </div>
                         <div className="card-body">
                             <Formik
-                                initialValues={{
-                                    categoryTitle: '',
-                                    categoryDescription: '',
-                                }}
+                                enableReinitialize
+                                initialValues={forminitialValues}
                                 validationSchema={Yup.object().shape({
                                     categoryTitle: Yup.string()
                                         .required('Category Title is required'),
@@ -43,7 +56,7 @@ const AddCategory = () => {
                                 })}
                                 onSubmit={fields => {
                                     alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 6))
-                                    submitData(fields);
+                                    handleData(fields);
                                 }}
                                 render={({ errors, status, touched }) => (
                                     <Row className="i-am-centered">
@@ -90,72 +103,4 @@ const AddCategory = () => {
         </>
     )
 }
-export default AddCategory
-
-// import React, { useState } from "react";
-// import { DataGrid } from '@mui/x-data-grid';
-// import { useEffect } from "react";
-// import axios from "axios";
-// import Link from "@material-ui/core/Link";
-
-// const CategoryList = () => {
-
-//   const FETCH_CATEGORYLIST_URL = 'http://localhost:8080/api/category';
-
-//   useEffect(() => {
-//     fetchCategoryList();
-//   }, []);
-
-//   const [category, setCategory] = useState([]);
-
-//   const columns = [
-//     { field: 'categorId', headerName: 'ID', width: 70 },
-//     { field: 'categoryTitle', headerName: 'Category Title', width: 130 },
-//     { field: 'categoryDescription', headerName: 'Category Description', width: 130 },
-//     {
-//       headerName: 'Actions', width: 130,
-//       renderCell: () => (
-//         <Link className="btn btn-primary mr2" to={`/admin/category/edit/${category.categorId}`}>Edit</Link>
-//       )
-//     }
-//   ];
-
-//   const fetchCategoryList = async () => {
-//     try {
-//       const response = await axios.get(FETCH_CATEGORYLIST_URL)
-//         .then((response) => {
-//           setCategory(response.data);
-//           console.log(response.data);
-//         })
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   }
-
-//   return (
-//     <>
-//       <div className="categorylist">
-//         <div className="container">
-//           <div className="card mt-4">
-//             <div className="card-header">
-//               <h1>Category List</h1>
-//             </div>
-//             <div className="card-body">
-//               <div style={{ height: 700, width: '100%' }}>
-//                 <DataGrid
-//                   getRowId={(row) => row.categorId}
-//                   rows={category}
-//                   columns={columns}
-//                   pageSize={5}
-//                   rowsPerPageOptions={[5]}
-//                   // checkboxSelection
-//                 />
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-// export default CategoryList
+export default EditCategory
