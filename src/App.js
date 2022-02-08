@@ -44,11 +44,11 @@ function App() {
 
           <Route exact={true} path="/product" component={Product}></Route>
 
-          <Route exact={true} path="/products/:id" component={ProductView}></Route>
-
-          <Route exact={true} path="/admin/uploadproduct" component={UplodProductDetails}></Route> */}
+          <Route exact={true} path="/products/:id" component={ProductView}></Route> */}
 
           <Route exact={true} path="/admin/addcategory" component={AddCategory}></Route>
+
+          <Route exact={true} path="/admin/uploadproduct" component={UplodProductDetails}></Route>
 
           <Route path="/welcome" component={Welcome}></Route>
           

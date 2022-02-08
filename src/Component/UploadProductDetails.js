@@ -11,10 +11,14 @@ const UplodProductDetails = () => {
 
     const UPLOADFILE_API_BASE_URL = "http://localhost:8080/api/upload";
 
+    const FETCH_CATEGORYLIST_URL = 'http://localhost:8080/api/category';
+
     const [fileData, setfileData] = useState();
+    const [category, setCategories] = useState([]);
+    const [selectedImage, setSelectedImage] = useState();
 
     useEffect(() => {
-        console.log("Service is Constructed.!");
+        fetchAllCategory();
     }, []);
 
     const handleImage = (event) => {
@@ -22,7 +26,18 @@ const UplodProductDetails = () => {
         let file = event.target.files[0];
         console.log(file);
         setfileData(file);
-    }
+        setSelectedImage(event.target.files[0]);
+    };
+
+    const fetchAllCategory = async () => {
+        try {
+            const response = await axios.get(FETCH_CATEGORYLIST_URL);
+            console.log(response.data);
+            setCategories(response.data);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     const submitData = async (fields) => {
         try {
@@ -45,7 +60,11 @@ const UplodProductDetails = () => {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
+
+    const removeSelectedImage = () => {
+        setSelectedImage();
+    };
 
     return (
         <>
@@ -75,7 +94,9 @@ const UplodProductDetails = () => {
                                     brand: Yup.string()
                                         .required('Product Brand is required'),
                                     quantity: Yup.string()
-                                        .required('Product Quantity is required')
+                                        .required('Product Quantity is required'),
+                                    category: Yup.string()
+                                        .required('Select the Category')
                                 })}
                                 onSubmit={fields => {
                                     alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 6))
@@ -108,6 +129,20 @@ const UplodProductDetails = () => {
                                                             />
                                                             <ErrorMessage name="productDescription" component="div" className="invalid-feedback" />
                                                         </div>
+                                                        {/* <div className="form-group">
+                                                            <label htmlFor="categories">Select Category</label>
+                                                            <Field as="select" name="categorId" className={'form-control' + (errors.category && touched.category ? ' is-invalid' : '')}>
+                                                                <option>Select Category</option>
+                                                                {
+                                                                    category.map((item) => {
+                                                                        return (
+                                                                            <option key={item.categoryId}>{item.categoryTitle}</option>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </Field>
+                                                            <ErrorMessage name="categories" component="div" className="invalid-feedback" />
+                                                        </div> */}
                                                         <div className="form-group">
                                                             <label htmlFor="price">Price</label>
                                                             <Field name="price" type="text" className={'form-control' + (errors.price && touched.price ? ' is-invalid' : '')} />
@@ -123,6 +158,18 @@ const UplodProductDetails = () => {
                                                             <Field name="quantity" type="text" className={'form-control' + (errors.quantity && touched.quantity ? ' is-invalid' : '')} />
                                                             <ErrorMessage name="quantity" component="div" className="invalid-feedback" />
                                                         </div>
+                                                        {selectedImage && (
+                                                            <div style={styles.preview}>
+                                                                <img
+                                                                    src={URL.createObjectURL(selectedImage)}
+                                                                    style={styles.image}
+                                                                    alt="Thumb"
+                                                                />
+                                                                <button type="submit" onClick={removeSelectedImage} style={styles.delete}>
+                                                                    Remove This Image
+                                                                </button>
+                                                            </div>
+                                                        )}
                                                         <div className="form-group">
                                                             <label htmlFor="image">Product Image</label>
                                                             <Field name="image" type="file" onChange={handleImage} accept="image/png, image/gif, image/jpeg" className={'form-control' + (errors.image && touched.image ? ' is-invalid' : '')} />
@@ -147,3 +194,27 @@ const UplodProductDetails = () => {
     )
 }
 export default UplodProductDetails
+
+const styles = {
+    container: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingTop: 50,
+    },
+    preview: {
+        marginTop: 50,
+        display: "flex",
+        flexDirection: "column",
+    },
+    image: { maxWidth: "35%", maxHeight: 120 },
+    delete: {
+        cursor: "pointer",
+        padding: 2,
+        maxWidth: "35%",
+        background: "red",
+        color: "white",
+        border: "none",
+    },
+};
